@@ -13,7 +13,6 @@ RUN curl -sL https://deb.nodesource.com/setup_8.x | bash - && apt-get install -y
 
 # Install postgres binary
 RUN pip install psycopg2-binary
-RUN pip install sentry-sdk==0.7.1
 RUN pip install python-json-logger
 RUN pip install pytorch-pretrained-bert
 
