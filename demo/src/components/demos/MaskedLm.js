@@ -141,11 +141,9 @@ function replaceMasks(output, choice, index) {
   let newString = ""
   if (choice !== undefined && index !== undefined) {
     const splitText = output.split("[MASK]")
-    let newString = ""
     let x = 0;
     splitText.forEach(text => {
       if (x > 0) {
-        console.log(x - 1 + " === " + index);
         if (x - 1 === index) {
           newString += choice;
         }
@@ -162,24 +160,6 @@ function replaceMasks(output, choice, index) {
 
 function addToUrl(output, choice, index) {
   let newString = replaceMasks(output, choice, index);
-  if (choice !== undefined && index !== undefined) {
-    const splitText = output.split("[MASK]")
-    let newString = ""
-    let x = 0;
-    splitText.forEach(text => {
-      if (x > 0) {
-        console.log(x - 1 + " === " + index);
-        if (x - 1 === index) {
-          newString += choice;
-        }
-        else {
-          newString += "[MASK]";
-        }
-      }
-      newString += text;
-      x += 1;
-    });
-  }
   if ('history' in window && newString) {
     window.history.pushState(null, null, '?text=' + encodeURIComponent(newString))
   }
@@ -274,8 +254,10 @@ class App extends React.Component {
     if (trimmedOutput.includes("[MASK]")) {
       this.setState({ loading: true, error: false })
 
+      const output = trimmedOutput !== undefined && choice !== undefined && index !== undefined ? replaceMasks(this.state.output, choice, index) : trimmedOutput;
+
       const payload = {
-        sentence: trimmedOutput,
+        sentence: output,
         next: choice,
         numsteps: 5,
         model_name: this.state.model
@@ -288,27 +270,31 @@ class App extends React.Component {
         addToUrl(this.state.output, choice, index);
       }
 
-    fetch(endpoint, {
-      method: "POST",
-      headers: {
-          "Content-Type": "application/json",
-      },
-      body: JSON.stringify(payload)
-    })
-    .then(response => response.json())
-    .then(data => {
-      if (this.currentRequestId === currentReqId) {
-        // If the user entered text by typing don't overwrite it, as that feels
-        // weird. If they clicked it overwrite it
-        const output = this.state.output
-        this.setState({...data, loading: false})
-        this.requestData = output;
+      if (output.includes("[MASK]")) {
+        fetch(endpoint, {
+          method: "POST",
+          headers: {
+              "Content-Type": "application/json",
+          },
+          body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+          if (this.currentRequestId === currentReqId) {
+            // If the user entered text by typing don't overwrite it, as that feels
+            // weird. If they clicked it overwrite it
+            this.setState({...data, output, loading: false})
+            this.requestData = output;
+          }
+        })
+        .catch(err => {
+          console.error('Error trying to communicate with the API:', err);
+          this.setState({ error: true, loading: false });
+        });
       }
-    })
-    .catch(err => {
-      console.error('Error trying to communicate with the API:', err);
-      this.setState({ error: true, loading: false });
-    });
+      else {
+        this.setState({output})
+      }
     }
   }
 
