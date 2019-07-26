@@ -137,9 +137,28 @@ const Token = styled.span`
 
 const DEFAULT = "Joel is";
 
-function addToUrl(output, choice) {
-  if ('history' in window) {
-    window.history.pushState(null, null, '?text=' + encodeURIComponent(output + (choice || '')))
+function addToUrl(output, choice, index) {
+  let newString = ""
+  if (choice !== undefined && index !== undefined) {
+    const splitText = output.split("[MASK]")
+    let newString = ""
+    let x = 0;
+    splitText.forEach(text => {
+      if (x > 0) {
+        console.log(x - 1 + " === " + index);
+        if (x - 1 === index) {
+          newString += choice;
+        }
+        else {
+          newString += "[MASK]";
+        }
+      }
+      newString += text;
+      x += 1;
+    });
+  }
+  if ('history' in window && newString) {
+    window.history.pushState(null, null, '?text=' + encodeURIComponent(newString))
   }
 }
 
@@ -219,24 +238,9 @@ class App extends React.Component {
 
   componentDidMount() {
     this.choose()
-    if ('history' in window) {
-      window.addEventListener('popstate', () => {
-        const fullText = loadFromUrl();
-        const doNotChangeUrl = fullText ? true : false;
-        const output = fullText || DEFAULT;
-        this.setState({
-          output,
-          loading: true,
-          words: null,
-          logits: null,
-          probabilities: null,
-          model: this.state.model
-        }, () => this.choose(undefined, doNotChangeUrl));
-      })
-    }
   }
 
-  choose(choice = undefined, doNotChangeUrl) {
+  choose(choice = undefined, index = undefined, doNotChangeUrl) {
     // strip trailing spaces
     const trimmedOutput = trimRight(this.state.output);
     if (trimmedOutput.length === 0) {
@@ -258,7 +262,7 @@ class App extends React.Component {
       const endpoint = `${API_ROOT}/predict/masked-lm`
 
       if ('history' in window && !doNotChangeUrl) {
-        addToUrl(this.state.output, choice);
+        addToUrl(this.state.output, choice, index);
       }
 
     fetch(endpoint, {
@@ -273,8 +277,8 @@ class App extends React.Component {
       if (this.currentRequestId === currentReqId) {
         // If the user entered text by typing don't overwrite it, as that feels
         // weird. If they clicked it overwrite it
-        const output = choice === undefined ? this.state.output : data.output
-        this.setState({...data, output, loading: false})
+        const output = this.state.output
+        this.setState({...data, loading: false})
         this.requestData = output;
       }
     })
@@ -299,9 +303,6 @@ class App extends React.Component {
     // const { responseData, requestData, interpretData, interpretModel, attackData, attackModel } = this.props
     var requestData = {"sentence": this.state.output};
     var interpretData = this.state.interpretData;
-    console.log(requestData);
-    console.log(interpretData);
-    console.log(this.props);
     var tokens = [];
     if (this.state.tokens === undefined) {
         tokens = [];
@@ -313,7 +314,6 @@ class App extends React.Component {
         else {
             tokens = this.state.tokens;
         }
-        console.log(this.state);
     }
     return (
         <div>
@@ -432,7 +432,7 @@ const Choices = ({output, index, logits, words, choose, probabilities}) => {
 
     return (
       <ListItem key={`${idx}-${cleanWord}`}>
-        <ChoiceItem onClick={() => choose(word)}>
+        <ChoiceItem onClick={() => choose(word, index)}>
           <Probability>{prob}</Probability>
           {' '}
           <Token>{cleanWord}</Token>
