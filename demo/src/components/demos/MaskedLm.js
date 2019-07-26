@@ -137,8 +137,31 @@ const Token = styled.span`
 
 const DEFAULT = "Joel is";
 
-function addToUrl(output, choice, index) {
+function replaceMasks(output, choice, index) {
   let newString = ""
+  if (choice !== undefined && index !== undefined) {
+    const splitText = output.split("[MASK]")
+    let newString = ""
+    let x = 0;
+    splitText.forEach(text => {
+      if (x > 0) {
+        console.log(x - 1 + " === " + index);
+        if (x - 1 === index) {
+          newString += choice;
+        }
+        else {
+          newString += "[MASK]";
+        }
+      }
+      newString += text;
+      x += 1;
+    });
+  }
+  return newString
+}
+
+function addToUrl(output, choice, index) {
+  let newString = replaceMasks(output, choice, index);
   if (choice !== undefined && index !== undefined) {
     const splitText = output.split("[MASK]")
     let newString = ""
