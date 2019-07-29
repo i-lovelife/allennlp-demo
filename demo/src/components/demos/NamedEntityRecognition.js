@@ -244,7 +244,7 @@ const examples = [
 const apiUrl = ({model}) => {
     const selectedModel = model || (taskModels[0] && taskModels[0].name);
     const endpoint = taskEndpoints[selectedModel]
-    return `${API_ROOT}/predict/${endpoint}`
+    return `${API_ROOT}/model/${endpoint}/predict`
 }
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}

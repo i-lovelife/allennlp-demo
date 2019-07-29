@@ -138,7 +138,7 @@ const examples = [
     },
 ];
 
-const apiUrl = () => `${API_ROOT}/predict/nlvr-parser`
+const apiUrl = () => `${API_ROOT}/model/nlvr-parser/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

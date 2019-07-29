@@ -5,7 +5,7 @@ import Model from '../Model'
 import OutputField from '../OutputField'
 
 // APIs. These link to the functions in app.py
-const apiUrl = () => `${API_ROOT}/predict/sentiment-analysis`
+const apiUrl = () => `${API_ROOT}/model/sentiment-analysis/predict`
 
 // title of the page
 const title = "Sentiment Analysis"
@@ -28,13 +28,13 @@ const fields = [
 const Output = ({ responseData, requestData}) => {
   const [positiveClassProbability, negativeClassProbability] = responseData['probs']
   const prediction = negativeClassProbability < positiveClassProbability ? "Positive" : "Negative"
-  
+
   // The "Answer" output field has the models predictions.
   return (
     <div className="model__content answer">
       <OutputField label="Answer">
       {prediction}
-      </OutputField>  
+      </OutputField>
   </div>
   );
 }

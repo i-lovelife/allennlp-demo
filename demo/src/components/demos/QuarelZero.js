@@ -209,7 +209,7 @@ examples.forEach(example => {
   appendDefault(example, 'entitycues', entitycuesDefault)
 })
 
-const apiUrl = () => `${API_ROOT}/predict/quarel-parser-zero`
+const apiUrl = () => `${API_ROOT}/model/quarel-parser-zero/predict`
 
 const modelProps = {apiUrl, title, description, fields, examples, Output}
 

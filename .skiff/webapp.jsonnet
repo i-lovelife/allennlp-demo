@@ -156,8 +156,8 @@ local cloudsql_volumes = [
 ];
 
 // Generate the ingress path entry for the given model
-local predict_path(model_name) = {
-    path: '/predict/' + model_name,
+local model_path(model_name) = {
+    path: '/' + model_name + '/.*',
     backend: {
         serviceName: fullyQualifiedName + '-' + model_name,
         servicePort: config.httpPort
@@ -191,7 +191,7 @@ local ingress = {
                 host: host,
                 http: {
                     paths: [
-                        predict_path(model_name)
+                        model_path(model_name)
                         for model_name in model_names
                     ] + [
                         {

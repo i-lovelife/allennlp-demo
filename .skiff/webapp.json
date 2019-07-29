@@ -42,105 +42,105 @@
                         "serviceName": "allennlp-demo-staging-atis-parser",
                         "servicePort": 8000
                      },
-                     "path": "/predict/atis-parser"
+                     "path": "/model/atis-parser/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-constituency-parsing",
                         "servicePort": 8000
                      },
-                     "path": "/predict/constituency-parsing"
+                     "path": "/model/constituency-parsing/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-coreference-resolution",
                         "servicePort": 8000
                      },
-                     "path": "/predict/coreference-resolution"
+                     "path": "/model/coreference-resolution/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-dependency-parsing",
                         "servicePort": 8000
                      },
-                     "path": "/predict/dependency-parsing"
+                     "path": "/model/dependency-parsing/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-event2mind",
                         "servicePort": 8000
                      },
-                     "path": "/predict/event2mind"
+                     "path": "/model/event2mind/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-fine-grained-named-entity-recognition",
                         "servicePort": 8000
                      },
-                     "path": "/predict/fine-grained-named-entity-recognition"
+                     "path": "/model/fine-grained-named-entity-recognition/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-named-entity-recognition",
                         "servicePort": 8000
                      },
-                     "path": "/predict/named-entity-recognition"
+                     "path": "/model/named-entity-recognition/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-naqanet-reading-comprehension",
                         "servicePort": 8000
                      },
-                     "path": "/predict/naqanet-reading-comprehension"
+                     "path": "/model/naqanet-reading-comprehension/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-nlvr-parser",
                         "servicePort": 8000
                      },
-                     "path": "/predict/nlvr-parser"
+                     "path": "/model/nlvr-parser/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-open-information-extraction",
                         "servicePort": 8000
                      },
-                     "path": "/predict/open-information-extraction"
+                     "path": "/model/open-information-extraction/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-quarel-parser-zero",
                         "servicePort": 8000
                      },
-                     "path": "/predict/quarel-parser-zero"
+                     "path": "/model/quarel-parser-zero/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-reading-comprehension",
                         "servicePort": 8000
                      },
-                     "path": "/predict/reading-comprehension"
+                     "path": "/model/reading-comprehension/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-semantic-role-labeling",
                         "servicePort": 8000
                      },
-                     "path": "/predict/semantic-role-labeling"
+                     "path": "/model/semantic-role-labeling/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-textual-entailment",
                         "servicePort": 8000
                      },
-                     "path": "/predict/textual-entailment"
+                     "path": "/model/textual-entailment/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-wikitables-parser",
                         "servicePort": 8000
                      },
-                     "path": "/predict/wikitables-parser"
+                     "path": "/model/wikitables-parser/.*"
                   },
                   {
                      "backend": {
@@ -161,105 +161,105 @@
                         "serviceName": "allennlp-demo-staging-atis-parser",
                         "servicePort": 8000
                      },
-                     "path": "/predict/atis-parser"
+                     "path": "/model/atis-parser/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-constituency-parsing",
                         "servicePort": 8000
                      },
-                     "path": "/predict/constituency-parsing"
+                     "path": "/model/constituency-parsing/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-coreference-resolution",
                         "servicePort": 8000
                      },
-                     "path": "/predict/coreference-resolution"
+                     "path": "/model/coreference-resolution/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-dependency-parsing",
                         "servicePort": 8000
                      },
-                     "path": "/predict/dependency-parsing"
+                     "path": "/model/dependency-parsing/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-event2mind",
                         "servicePort": 8000
                      },
-                     "path": "/predict/event2mind"
+                     "path": "/model/event2mind/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-fine-grained-named-entity-recognition",
                         "servicePort": 8000
                      },
-                     "path": "/predict/fine-grained-named-entity-recognition"
+                     "path": "/model/fine-grained-named-entity-recognition/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-named-entity-recognition",
                         "servicePort": 8000
                      },
-                     "path": "/predict/named-entity-recognition"
+                     "path": "/model/named-entity-recognition/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-naqanet-reading-comprehension",
                         "servicePort": 8000
                      },
-                     "path": "/predict/naqanet-reading-comprehension"
+                     "path": "/model/naqanet-reading-comprehension/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-nlvr-parser",
                         "servicePort": 8000
                      },
-                     "path": "/predict/nlvr-parser"
+                     "path": "/model/nlvr-parser/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-open-information-extraction",
                         "servicePort": 8000
                      },
-                     "path": "/predict/open-information-extraction"
+                     "path": "/model/open-information-extraction/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-quarel-parser-zero",
                         "servicePort": 8000
                      },
-                     "path": "/predict/quarel-parser-zero"
+                     "path": "/model/quarel-parser-zero/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-reading-comprehension",
                         "servicePort": 8000
                      },
-                     "path": "/predict/reading-comprehension"
+                     "path": "/model/reading-comprehension/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-semantic-role-labeling",
                         "servicePort": 8000
                      },
-                     "path": "/predict/semantic-role-labeling"
+                     "path": "/model/semantic-role-labeling/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-textual-entailment",
                         "servicePort": 8000
                      },
-                     "path": "/predict/textual-entailment"
+                     "path": "/model/textual-entailment/.*"
                   },
                   {
                      "backend": {
                         "serviceName": "allennlp-demo-staging-wikitables-parser",
                         "servicePort": 8000
                      },
-                     "path": "/predict/wikitables-parser"
+                     "path": "/model/wikitables-parser/.*"
                   },
                   {
                      "backend": {

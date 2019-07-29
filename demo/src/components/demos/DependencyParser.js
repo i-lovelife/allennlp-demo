@@ -55,7 +55,7 @@ const examples = [
     "CRISPR-Cas9 is a versatile genome editing technology for studying the functions of genetic elements."
   ].map(sentence => ({sentence}))
 
-const apiUrl = () => `${API_ROOT}/predict/dependency-parsing`
+const apiUrl = () => `${API_ROOT}/model/dependency-parsing/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

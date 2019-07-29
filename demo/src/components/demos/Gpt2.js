@@ -233,7 +233,7 @@ class App extends React.Component {
     }
 
     const currentReqId = this.createRequestId();
-    const endpoint = `${API_ROOT}/predict/gpt2`
+    const endpoint = `${API_ROOT}/model/gpt2/predict`
 
     if ('history' in window && !doNotChangeUrl) {
       addToUrl(this.state.output, choice);

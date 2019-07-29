@@ -55,7 +55,7 @@ const examples = [
     "True self-control is waiting until the movie starts to eat your popcorn.",
   ].map(sentence => ({sentence}))
 
-const apiUrl = () => `${API_ROOT}/predict/constituency-parsing`
+const apiUrl = () => `${API_ROOT}/model/constituency-parsing/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

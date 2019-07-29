@@ -170,7 +170,7 @@ def make_app(build_dir: str,
                 "responseData": permadata.response_data
         })
 
-    @app.route('/predict/<model_name>', methods=['POST', 'OPTIONS'])
+    @app.route('/model/<model_name>/predict', methods=['POST', 'OPTIONS'])
     def predict(model_name: str) -> Response:  # pylint: disable=unused-variable
         """make a prediction using the specified model and return the results"""
         if request.method == "OPTIONS":

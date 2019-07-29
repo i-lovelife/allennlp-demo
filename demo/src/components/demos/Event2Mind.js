@@ -192,7 +192,7 @@ const examples = [
   ].map(source => ({source}))
 
 
-const apiUrl = () => `${API_ROOT}/predict/event2mind`
+const apiUrl = () => `${API_ROOT}/model/event2mind/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

@@ -8,7 +8,7 @@ import Model from '../Model'
 import HighlightContainer from '../highlight/HighlightContainer';
 import { Highlight, getHighlightColor } from '../highlight/Highlight';
 
-const apiUrl = () => `${API_ROOT}/predict/coreference-resolution`
+const apiUrl = () => `${API_ROOT}/model/coreference-resolution/predict`
 
 const title = "Co-reference Resolution";
 

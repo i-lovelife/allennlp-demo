@@ -258,7 +258,7 @@ const examples = [
     "More than a few CEOs say the red-carpet treatment tempts them to return to a heartland city for future meetings.",
 ].map(sentence => ({sentence}))
 
-const apiUrl = () => `${API_ROOT}/predict/semantic-role-labeling`
+const apiUrl = () => `${API_ROOT}/model/semantic-role-labeling/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

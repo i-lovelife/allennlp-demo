@@ -139,7 +139,7 @@ const examples = [
   },
 ];
 
-const apiUrl = () => `${API_ROOT}/predict/atis-parser`
+const apiUrl = () => `${API_ROOT}/model/atis-parser/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

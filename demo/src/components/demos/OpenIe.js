@@ -247,7 +247,7 @@ const examples = [
   ].map(sentence => ({sentence}))
 
 
-const apiUrl = () => `${API_ROOT}/predict/open-information-extraction`
+const apiUrl = () => `${API_ROOT}/model/open-information-extraction/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

@@ -187,7 +187,7 @@ const examples = [
     },
 ];
 
-const apiUrl = () => `${API_ROOT}/predict/wikitables-parser`
+const apiUrl = () => `${API_ROOT}/model/wikitables-parser/predict`
 
 const modelProps = {apiUrl, title, description, descriptionEllipsed, fields, examples, Output}
 

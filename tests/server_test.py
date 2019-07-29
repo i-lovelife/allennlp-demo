@@ -110,14 +110,14 @@ class TestFlask(AllenNlpTestCase):
         assert "reading-comprehension" in set(data["models"])
 
     def test_unknown_model(self):
-        response = self.post_json("/predict/bogus_model",
+        response = self.post_json("/model/bogus/predict_model",
                                   data={"input": "broken"})
         assert response.status_code == 400
         data = response.get_data()
         assert b"unknown model" in data and b"bogus_model" in data
 
     def test_machine_comprehension(self):
-        response = self.post_json("/predict/reading-comprehension",
+        response = self.post_json("/model/reading-comprehension/predict",
                                   data={"passage": "the super bowl was played in seattle",
                                         "question": "where was the super bowl played?"})
 
@@ -126,7 +126,7 @@ class TestFlask(AllenNlpTestCase):
         assert "best_span" in results
 
     def test_textual_entailment(self):
-        response = self.post_json("/predict/textual-entailment",
+        response = self.post_json("/model/textual-entailment/predict",
                                   data={"premise": "the super bowl was played in seattle",
                                         "hypothesis": "the super bowl was played in ohio"})
         assert response.status_code == 200
@@ -134,21 +134,21 @@ class TestFlask(AllenNlpTestCase):
         assert "label_probs" in results
 
     def test_semantic_role_labeling(self):
-        response = self.post_json("/predict/semantic-role-labeling",
+        response = self.post_json("/model/semantic-role-labeling/predict",
                                   data={"sentence": "the super bowl was played in seattle"})
         assert response.status_code == 200
         results = json.loads(response.get_data())
         assert "verbs" in results
 
     def test_open_information_extraction(self):
-        response = self.post_json("/predict/open-information-extraction",
+        response = self.post_json("/model/open-information-extraction/predict",
                                   data={"sentence": "the super bowl was played in seattle"})
         assert response.status_code == 200
         results = json.loads(response.get_data())
         assert "verbs" in results
 
     def test_event2mind(self):
-        response = self.post_json("/predict/event2mind",
+        response = self.post_json("/model/event2mind/predict",
                                   data={"source": "PersonX starts to yell at PersonY"})
         assert response.status_code == 200
         results = json.loads(response.get_data())
@@ -159,7 +159,7 @@ class TestFlask(AllenNlpTestCase):
     def test_checks_request_length(self):
         long_string = "PersonX" * 3000
 
-        response = self.post_json("/predict/event2mind", data={"source": long_string})
+        response = self.post_json("/model/event2mind/predict", data={"source": long_string})
         assert response.status_code == 400
         results = json.loads(response.get_data())
         assert results["message"].startswith("Max request length exceeded for model event2mind!")
@@ -175,7 +175,7 @@ class TestFlask(AllenNlpTestCase):
         # call counts should be empty
         assert not predictor.calls
 
-        response = self.post_json("/predict/counting", data=data)
+        response = self.post_json("/model/counting/predict", data=data)
         assert response.status_code == 200
         assert json.loads(response.get_data()) == data
 
@@ -185,7 +185,7 @@ class TestFlask(AllenNlpTestCase):
 
         # make a different call
         noyes = {"no": "yes"}
-        response = self.post_json("/predict/counting", data=noyes)
+        response = self.post_json("/model/counting/predict", data=noyes)
         assert response.status_code == 200
         assert json.loads(response.get_data()) == noyes
 
@@ -196,7 +196,7 @@ class TestFlask(AllenNlpTestCase):
 
         # repeated calls should come from cache and not hit the predictor
         for _ in range(3):
-            response = self.post_json("/predict/counting", data=data)
+            response = self.post_json("/model/counting/predict", data=data)
             assert response.status_code == 200
             assert json.loads(response.get_data()) == data
 
@@ -219,7 +219,7 @@ class TestFlask(AllenNlpTestCase):
         assert not predictor.calls
 
         for i in range(5):
-            response = client.post("/predict/counting",
+            response = client.post("/model/counting/predict",
                                    content_type="application/json",
                                    data=json.dumps(data))
             assert response.status_code == 200
@@ -247,7 +247,7 @@ class TestFlask(AllenNlpTestCase):
 
         # Make a prediction, no permalinks.
         data = {"some": "input"}
-        response = client.post("/predict/counting", content_type="application/json", data=json.dumps(data))
+        response = client.post("/model/counting/predict", content_type="application/json", data=json.dumps(data))
 
         assert response.status_code == 200
 
@@ -272,7 +272,7 @@ class TestFlask(AllenNlpTestCase):
             return client.post(endpoint, content_type="application/json", data=json.dumps(data))
 
         data = {"some": "input"}
-        response = post("/predict/counting", data=data)
+        response = post("/model/counting/predict", data=data)
 
         assert response.status_code == 200
         result = json.loads(response.get_data())
@@ -304,7 +304,7 @@ class TestFlask(AllenNlpTestCase):
             return client.post(endpoint, content_type="application/json", data=json.dumps(data))
 
         data = {"some": "very nasty input that will cause a failure"}
-        response = post("/predict/failing", data=data)
+        response = post("/model/failing/predict", data=data)
         assert response.status_code == 500
 
         # This won't be returned when the server errors out, but the necessary information is still
@@ -338,7 +338,7 @@ class TestFlask(AllenNlpTestCase):
         assert data["models"] == ["reading-comprehension"]
 
         # Should return results for that model
-        response = client.post("/predict/reading-comprehension",
+        response = client.post("/model/reading-comprehension/predict",
                                content_type="application/json",
                                data="""{"passage": "the super bowl was played in seattle",
                                         "question": "where was the super bowl played?"}""")
@@ -347,7 +347,7 @@ class TestFlask(AllenNlpTestCase):
         assert "best_span" in results
 
         # Other models should be unknown
-        response = client.post("/predict/textual-entailment",
+        response = client.post("/model/textual-entailment/predict",
                                content_type="application/json",
                                data="""{"premise": "the super bowl was played in seattle",
                                         "hypothesis": "the super bowl was played in ohio"}""")

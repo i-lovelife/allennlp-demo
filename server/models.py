@@ -12,7 +12,7 @@ from server.gpt2 import Gpt2DemoModel
 # and the type of the ``Predictor``.  This is necessary, as you might
 # have multiple models (for example, a NER tagger and a POS tagger)
 # that have the same ``Predictor`` wrapper. The corresponding model
-# will be served at the `/predict/<name-of-task>` API endpoint.
+# will be served at the `/model/<name-of-task>/predict` API endpoint.
 
 def load_demo_models(models_file: str,
                      task_names: List[str] = None,

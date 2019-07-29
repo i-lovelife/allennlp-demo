@@ -15,7 +15,7 @@ import OutputField from '../OutputField'
 
 import '../../css/TeComponent.css';
 
-const apiUrl = () => `${API_ROOT}/predict/textual-entailment`
+const apiUrl = () => `${API_ROOT}/model/textual-entailment/predict`
 
 const title = "Textual Entailment"
 
