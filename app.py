@@ -31,7 +31,10 @@ from server.logging import StackdriverJsonFormatter
 from server.utils import with_no_cache_headers
 from server.demo_model import DemoModel
 from server.models import load_demo_models
-
+import sys
+sys.path.append('../../')
+sys.path.append('.')
+from my_service import GridBeamSearchService
 
 logging.getLogger("allennlp").setLevel(logging.WARN)
 logger = logging.getLogger(__name__)  # pylint: disable=invalid-name
@@ -188,13 +191,19 @@ def make_app(build_dir: str,
         use_cache = request.args.get("cache", "true").lower() != "false"
 
         lowered_model_name = model_name.lower()
-        model = app.predictors.get(lowered_model_name)
+        if lowered_model_name in ["keyword_generation_gbs"]:
+            name_mapping = {"keyword_generation_gbs": GridBeamSearchService,
+                            }
+            model = name_mapping[lowered_model_name]
+            max_request_length = 5000
+        else:
+            model = app.predictors.get(lowered_model_name)
+            max_request_length = app.max_request_lengths[lowered_model_name]
         if model is None:
             raise ServerError("unknown model: {}".format(model_name), status_code=400)
-        max_request_length = app.max_request_lengths[lowered_model_name]
-
+        
         data = request.get_json()
-
+        #import pdb;pdb.set_trace()
         serialized_request = json.dumps(data)
         if len(serialized_request) > max_request_length:
             raise ServerError(f"Max request length exceeded for model {model_name}! " +
@@ -289,7 +298,6 @@ def make_app(build_dir: str,
         # TODO(brendanr): Add event2mind log_blob here?
 
         logger.info("prediction: %s", json.dumps(log_blob))
-
         return jsonify(prediction)
 
     @app.route('/models')
